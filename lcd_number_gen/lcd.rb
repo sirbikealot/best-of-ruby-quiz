@@ -97,10 +97,10 @@ class LcdPrinter < LcdGenerator
         print " "
       end
     end
-	end
+  end
 
 				
-	def print_row2 # print row 2 of 5 lcd number rows
+  def print_row2 # print row 2 of 5 lcd number rows
     print_digit_row do
       @digits.each do |n|
         case n
@@ -113,7 +113,7 @@ class LcdPrinter < LcdGenerator
     end
   end
 	
-	def print_row3 # print row 3 of 5 lcd number rows
+  def print_row3 # print row 3 of 5 lcd number rows
     print_digit_row do
       @digits.each do |n|
         case n
