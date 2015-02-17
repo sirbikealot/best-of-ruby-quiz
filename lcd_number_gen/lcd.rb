@@ -31,124 +31,124 @@ Note the single column of space between digits in both examples. For other value
 =end
 
 if ARGV.include?("-s") # parse CLI arguments:
-	lcd_height = ARGV[1].to_i
-	number = ARGV[2]
+  lcd_height = ARGV[1].to_i
+  number = ARGV[2]
 else
-	lcd_height = 2
-	number = ARGV[0]
+  lcd_height = 2
+  number = ARGV[0]
 end
 
 class LcdGenerator
 	
-	def initialize(number, height)
-		@number = number
-		@digits = number.chars
-		@height = height.to_i
-	end
+  def initialize(number, height)
+    @number = number
+    @digits = number.chars
+    @height = height.to_i
+  end
 	
-	private
+  private
 	
-	def print_blank
-		print " #{' '* @height} "
-	end
+  def print_blank
+    print " #{' '* @height} "
+  end
 	
-	def print_horizontal_line
-		print " #{"-"* @height} "
-	end
+  def print_horizontal_line
+    print " #{"-"* @height} "
+  end
 	
-	def print_left_vertical # print left-side upright
-		print "|#{' ' * @height} "
-	end
+  def print_left_vertical # print left-side upright
+    print "|#{' ' * @height} "
+  end
 		
-	def print_right_vertical # print right-side upright
-		print " #{' ' * @height}|"
-	end
+  def print_right_vertical # print right-side upright
+    print " #{' ' * @height}|"
+  end
 	
-	def print_left_and_right # print both uprights
-		print "|#{' ' * @height}|"
-	end
+  def print_left_and_right # print both uprights
+    print "|#{' ' * @height}|"
+  end
 
 end
 
 class LcdPrinter < LcdGenerator
 
-	def print_all_rows # print all lcd number rows
-		print_row1
-		@height.times { print_row2 }
-		print_row3
-		@height.times { print_row4 }
-		print_row5
-	end
+  def print_all_rows # print all lcd number rows
+    print_row1
+    @height.times { print_row2 }
+    print_row3
+    @height.times { print_row4 }
+    print_row5
+  end
 	
-	private
+  private
 	
-	def print_digit_row
-		yield
-		puts
-	end
+  def print_digit_row
+    yield
+    puts
+  end
 		
-	def print_row1 # print row 1 of 5 lcd number rows
-		print_digit_row do 
-			@digits.each do |n|
-				case n
-				when "1", "4" then print_blank
-				else print_horizontal_line # when "0", "2".."3" , "5".."9"
-				end
-				print " "
-			end
-		end
+  def print_row1 # print row 1 of 5 lcd number rows
+    print_digit_row do 
+      @digits.each do |n|
+        case n
+        when "1", "4" then print_blank
+        else print_horizontal_line # when "0", "2".."3" , "5".."9"
+        end
+        print " "
+      end
+    end
 	end
 
 				
 	def print_row2 # print row 2 of 5 lcd number rows
-		print_digit_row do
-			@digits.each do |n|
-				case n
-				when "0", "4", "8".."9" then print_left_and_right
-				when "5".."6" then print_left_vertical
-				else print_right_vertical # when "1" , "2..3", "7"
-				end
-				print " "
-			end
-		end
-	end
+    print_digit_row do
+      @digits.each do |n|
+        case n
+        when "0", "4", "8".."9" then print_left_and_right
+        when "5".."6" then print_left_vertical
+        else print_right_vertical # when "1" , "2..3", "7"
+        end
+        print " "
+      end
+    end
+  end
 	
 	def print_row3 # print row 3 of 5 lcd number rows
-		print_digit_row do
-			@digits.each do |n|
-				case n
-				when "0".."1", "7" then print_blank
-				else print_horizontal_line # when "2".."6" , "8".."9"
-				end
-				print " "
-			end
-		end
-	end
+    print_digit_row do
+      @digits.each do |n|
+        case n
+        when "0".."1", "7" then print_blank
+        else print_horizontal_line # when "2".."6" , "8".."9"
+        end
+        print " "
+      end
+    end
+  end
 	
-	def print_row4 # print row 4 of 5 lcd number rows
-		print_digit_row do
-			@digits.each do |n|
-				case n
-				when "0", "6", "8" then print_left_and_right
-				when "2" then print_left_vertical							
-				else print_right_vertical # when "1", "3".."5", "7", "9"
-				end
-				print " "
-			end
-		end	
-	end
-	
-	def print_row5 # print row 5 of 5 lcd number rows
-		print_digit_row do
-			@digits.each do |n|
-				case n
-				when "1", "4", "7" then print_blank
-				else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
-				end
-				print " "
-			end
-		end		
-	end
+  def print_row4 # print row 4 of 5 lcd number rows
+    print_digit_row do
+      @digits.each do |n|
+        case n
+        when "0", "6", "8" then print_left_and_right
+        when "2" then print_left_vertical							
+        else print_right_vertical # when "1", "3".."5", "7", "9"
+        end
+        print " "
+      end
+    end	
+  end
+
+  def print_row5 # print row 5 of 5 lcd number rows
+    print_digit_row do
+      @digits.each do |n|
+        case n
+        when "1", "4", "7" then print_blank
+        else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
+        end
+        print " "
+      end
+    end		
+  end
 	
 end
 
@@ -198,34 +198,34 @@ Some methods I considered:
 
 # Some of the methods used in the final solution prior to refactoring:
 
-	def print_blank
-		print (" " * @height).center(@height + 2) # print " " , " " * @height, " "		
-	end
+def print_blank
+  print (" " * @height).center(@height + 2) # print " " , " " * @height, " "		
+end
+
+def print_horizontal_line
+  print ("-" * @height).center(@height + 2) # print " " , "-" * @height, " "
+end
+
+def print_left_vertical
+  print "|"
+  @height.times { print " " }
+  print " "
+end
+
+def print_left_and_right
+  print "|"
+  @height.times { print " " }
+  print "|"
+end
+
+def print_left_and_right
+  print (' ' * @height).center(@height + 2 , '|')
+end
+
+class LcdPrinter < LcdGenerator
 	
-	def print_horizontal_line
-		print ("-" * @height).center(@height + 2) # print " " , "-" * @height, " "
-	end
-	
-	def print_left_vertical
-		print "|"
-		@height.times { print " " }
-		print " "
-	end
-	
-	def print_left_and_right
-		print "|"
-		@height.times { print " " }
-		print "|"
-	end
-	
-	def print_left_and_right
-		print (' ' * @height).center(@height + 2 , '|')
-	end
-	
-	class LcdPrinter < LcdGenerator
-		
-		def initialize(number, height)
-			super
-		end
-	
+  def initialize(number, height)
+    super
+  end
+
 =end
