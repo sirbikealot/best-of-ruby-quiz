@@ -1,1 +1,3 @@
 # best-of-ruby-quiz
+I have been practicing my Ruby coding skills with the problems in Practical Programming's "Best Of Ruby Quiz" by Michael Edward Gray.
+Each problem can be found in its own project subfolder, and my solution can be found in a file within each folder.  As of this writing (17Feb2015) I am including comments in each solution file.  At some later date I may decide to expand the file structure to place tests and comments in separate subfolders withing each project folder. 
