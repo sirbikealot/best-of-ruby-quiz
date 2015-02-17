@@ -13,12 +13,11 @@ $ lcd.rb 012345
 the correct display is this:
  --        --   --        --
 |  |    |    |    | |  | |
-|  |		|    |    | |  | |
+|  |    |    |    | |  | |
            --   --   --   --
 |  |    | |       |    |    |
 |  |    | |       |    |    |
- --			   --   --        --
-
+ --        --   --   --   --
 And for this:
 > lcd.rb -s 1 6789
 your program should print this:
