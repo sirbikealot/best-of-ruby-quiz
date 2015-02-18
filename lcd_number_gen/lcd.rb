@@ -82,15 +82,15 @@ class LcdPrinter < LcdGenerator
 	
   private
 	
-	def print_row(&block) # eliminates repetition in print_rowx
-		@digits.each do |n|
-			block.call(n)
-			print " "
-		end
+  def print_row(&block) # eliminates repetition in print_rowx
+    @digits.each do |n|
+      block.call(n)
+      print " "
+    end
 		puts
-	end
+  end
 	
-	def print_row1 # print row 1 of 5 lcd number rows
+  def print_row1 # print row 1 of 5 lcd number rows
     print_row do |n|		
       case n
       when "1", "4" then print_blank
@@ -98,45 +98,45 @@ class LcdPrinter < LcdGenerator
       end
     end
   end
-				
-	def print_row2 # print row 2 of 5 lcd number rows
+			
+  def print_row2 # print row 2 of 5 lcd number rows
     print_row do |n|		
-			case n
-			when "0", "4", "8".."9" then print_left_and_right
-			when "5".."6" then print_left_vertical
-			else print_right_vertical # when "1" , "2..3", "7"
-			end
-		end
-	end
-	
-	def print_row3 # print row 3 of 5 lcd number rows
+      case n
+      when "0", "4", "8".."9" then print_left_and_right
+      when "5".."6" then print_left_vertical
+      else print_right_vertical # when "1" , "2..3", "7"
+      end
+    end
+  end
+
+  def print_row3 # print row 3 of 5 lcd number rows
     print_row do |n|		
-			case n
-			when "0".."1", "7" then print_blank
-			else print_horizontal_line # when "2".."6" , "8".."9"
-			end
-		end
-	end
-	
-	def print_row4 # print row 4 of 5 lcd number rows
+      case n
+      when "0".."1", "7" then print_blank
+      else print_horizontal_line # when "2".."6" , "8".."9"
+      end
+    end
+  end
+
+  def print_row4 # print row 4 of 5 lcd number rows
     print_row do |n|		
-			case n
-			when "0", "6", "8" then print_left_and_right
-			when "2" then print_left_vertical							
-			else print_right_vertical # when "1", "3".."5", "7", "9"
-			end
-		end
-	end
-	
-	def print_row5 # print row 5 of 5 lcd number rows
+      case n
+      when "0", "6", "8" then print_left_and_right
+      when "2" then print_left_vertical							
+      else print_right_vertical # when "1", "3".."5", "7", "9"
+      end
+    end
+  end
+
+  def print_row5 # print row 5 of 5 lcd number rows
     print_row do |n|		
-			case n
-			when "1", "4", "7" then print_blank
-			else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
-			end
-		end	
-	end
-	
+      case n
+      when "1", "4", "7" then print_blank
+      else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
+      end
+    end	
+  end
+
 end
 
 p = LcdPrinter.new(number, lcd_height)
