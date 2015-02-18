@@ -87,7 +87,7 @@ class LcdPrinter < LcdGenerator
       block.call(n)
       print " "
     end
-		puts
+    puts
   end
 	
   def print_row1 # print row 1 of 5 lcd number rows
