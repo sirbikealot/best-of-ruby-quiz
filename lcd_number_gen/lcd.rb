@@ -2,7 +2,7 @@
 
 # Chapter 2: LCD Numbers of "Best Of Ruby Quiz" by James Edward Gray
 
-# Problem setup follows.  My solution begins on line 34
+# Problem setup follows.  My solution begins on line 33
 
 =begin
 
@@ -82,73 +82,60 @@ class LcdPrinter < LcdGenerator
 	
   private
 	
-  def print_digit_row
-    yield
-    puts
-  end
-		
-  def print_row1 # print row 1 of 5 lcd number rows
-    print_digit_row do 
-      @digits.each do |n|
-        case n
-        when "1", "4" then print_blank
-        else print_horizontal_line # when "0", "2".."3" , "5".."9"
-        end
-        print " "
+	def print_row(&block) # eliminates repetition in print_rowx
+		@digits.each do |n|
+			block.call(n)
+			print " "
+		end
+		puts
+	end
+	
+	def print_row1 # print row 1 of 5 lcd number rows
+    print_row do |n|		
+      case n
+      when "1", "4" then print_blank
+      else print_horizontal_line # when "0", "2".."3" , "5".."9"
       end
     end
   end
-
 				
-  def print_row2 # print row 2 of 5 lcd number rows
-    print_digit_row do
-      @digits.each do |n|
-        case n
-        when "0", "4", "8".."9" then print_left_and_right
-        when "5".."6" then print_left_vertical
-        else print_right_vertical # when "1" , "2..3", "7"
-        end
-        print " "
-      end
-    end
-  end
+	def print_row2 # print row 2 of 5 lcd number rows
+    print_row do |n|		
+			case n
+			when "0", "4", "8".."9" then print_left_and_right
+			when "5".."6" then print_left_vertical
+			else print_right_vertical # when "1" , "2..3", "7"
+			end
+		end
+	end
 	
-  def print_row3 # print row 3 of 5 lcd number rows
-    print_digit_row do
-      @digits.each do |n|
-        case n
-        when "0".."1", "7" then print_blank
-        else print_horizontal_line # when "2".."6" , "8".."9"
-        end
-        print " "
-      end
-    end
-  end
+	def print_row3 # print row 3 of 5 lcd number rows
+    print_row do |n|		
+			case n
+			when "0".."1", "7" then print_blank
+			else print_horizontal_line # when "2".."6" , "8".."9"
+			end
+		end
+	end
 	
-  def print_row4 # print row 4 of 5 lcd number rows
-    print_digit_row do
-      @digits.each do |n|
-        case n
-        when "0", "6", "8" then print_left_and_right
-        when "2" then print_left_vertical							
-        else print_right_vertical # when "1", "3".."5", "7", "9"
-        end
-        print " "
-      end
-    end	
-  end
-
-  def print_row5 # print row 5 of 5 lcd number rows
-    print_digit_row do
-      @digits.each do |n|
-        case n
-        when "1", "4", "7" then print_blank
-        else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
-        end
-        print " "
-      end
-    end		
-  end
+	def print_row4 # print row 4 of 5 lcd number rows
+    print_row do |n|		
+			case n
+			when "0", "6", "8" then print_left_and_right
+			when "2" then print_left_vertical							
+			else print_right_vertical # when "1", "3".."5", "7", "9"
+			end
+		end
+	end
+	
+	def print_row5 # print row 5 of 5 lcd number rows
+    print_row do |n|		
+			case n
+			when "1", "4", "7" then print_blank
+			else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
+			end
+		end	
+	end
 	
 end
 
@@ -159,7 +146,7 @@ p.print_all_rows
 
 =begin
 
-[2015Feb16 20:51:09] lcd_number_gen $ ruby lcd.rb 0987654321
+[2015Feb17 19:41:40] lcd_number_gen $ ruby lcd.rb 0987654321
  --   --   --   --   --   --        --   --       
 |  | |  | |  |    | |    |    |  |    |    |    | 
 |  | |  | |  |    | |    |    |  |    |    |    | 
@@ -167,7 +154,7 @@ p.print_all_rows
 |  |    | |  |    | |  |    |    |    | |       | 
 |  |    | |  |    | |  |    |    |    | |       | 
  --   --   --        --   --        --   --       
-[2015Feb16 20:55:14] lcd_number_gen $ ruby lcd.rb -s 1 0987654321
+[2015Feb17 19:41:54] lcd_number_gen $ ruby lcd.rb -s 1 0987654321
  -   -   -   -   -   -       -   -      
 | | | | | |   | |   |   | |   |   |   | 
      -   -       -   -   -   -   -      
