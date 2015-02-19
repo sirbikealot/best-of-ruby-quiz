@@ -94,7 +94,7 @@ class LcdPrinter < LcdGenerator
     print_row do |n|		
       if n == "1" || n == "4" then print_blank
       else print_horizontal_line
-    	end
+      end
     end
   end
 			
