@@ -92,10 +92,9 @@ class LcdPrinter < LcdGenerator
 	
   def print_row1 # print row 1 of 5 lcd number rows
     print_row do |n|		
-      case n
-      when "1", "4" then print_blank
-      else print_horizontal_line # when "0", "2".."3" , "5".."9"
-      end
+      if n == "1" || n == "4" then print_blank
+      else print_horizontal_line
+    	end
     end
   end
 			
@@ -111,8 +110,7 @@ class LcdPrinter < LcdGenerator
 
   def print_row3 # print row 3 of 5 lcd number rows
     print_row do |n|		
-      case n
-      when "0".."1", "7" then print_blank
+      if n == "0" || n == "1" || n == "7" then print_blank
       else print_horizontal_line # when "2".."6" , "8".."9"
       end
     end
@@ -130,8 +128,7 @@ class LcdPrinter < LcdGenerator
 
   def print_row5 # print row 5 of 5 lcd number rows
     print_row do |n|		
-      case n
-      when "1", "4", "7" then print_blank
+      if n == "1" || n == "4" || n == "7" then print_blank
       else print_horizontal_line # when "0", "2".."3" , "5".."6", "8".."9"
       end
     end	
