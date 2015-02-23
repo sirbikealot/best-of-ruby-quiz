@@ -72,6 +72,9 @@ end
 
 class LcdPrinter < LcdGenerator
 
+# make separate class and initialize with instances of LcdGenerator
+# @lcd_generator = LcdGenerator.new
+
   def print_all_rows # print all lcd number rows
     print_row1
     @height.times { print_row2 }
