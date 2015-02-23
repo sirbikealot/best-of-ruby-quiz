@@ -38,59 +38,13 @@ else
   number = ARGV[0]
 end
 
-class LcdGenerator
+class LcdSizer
+	
+  attr_reader	:height
 	
   def initialize(number, height)
-    @number = number
-    @digits = number.chars
     @height = height.to_i
-  end
-	
-  private
-	
-  def print_blank
-    print " #{' '* @height} "
-  end
-	
-  def print_horizontal_line
-    print " #{"-"* @height} "
-  end
-	
-  def print_left_vertical # print left-side upright
-    print "|#{' ' * @height} "
-  end
-		
-  def print_right_vertical # print right-side upright
-    print " #{' ' * @height}|"
-  end
-	
-  def print_left_and_right # print both uprights
-    print "|#{' ' * @height}|"
-  end
-
-end
-
-class LcdPrinter < LcdGenerator
-
-# make separate class and initialize with instances of LcdGenerator
-# @lcd_generator = LcdGenerator.new
-
-  def print_all_rows # print all lcd number rows
-    print_row1
-    @height.times { print_row2 }
-    print_row3
-    @height.times { print_row4 }
-    print_row5
-  end
-	
-  private
-	
-  def print_row(&block) # eliminates repetition in print_rowx
-    @digits.each do |n|
-      block.call(n)
-      print " "
-    end
-    puts
+    @digits = number.chars
   end
 	
   def print_row1 # print row 1 of 5 lcd number rows
@@ -137,16 +91,65 @@ class LcdPrinter < LcdGenerator
     end	
   end
 
+  private
+	
+  def print_blank
+    print " #{' '* @height} "
+  end
+	
+  def print_horizontal_line
+    print " #{"-"* @height} "
+  end
+	
+  def print_left_vertical # print left-side upright
+    print "|#{' ' * @height} "
+  end
+		
+  def print_right_vertical # print right-side upright
+    print " #{' ' * @height}|"
+  end
+	
+  def print_left_and_right # print both uprights
+    print "|#{' ' * @height}|"
+  end
+	
+  def print_row(&block) # eliminates repetition in print_rowx
+    @digits.each do |n|
+      block.call(n)
+      print " "
+    end
+    puts
+  end
+  
+end
+
+class LcdPrinter
+
+  attr_reader	:lcd_sizer , :height
+
+  def initialize(number, lcd_height)
+    @lcd_sizer = LcdSizer.new(number, lcd_height)
+  end
+
+  def print_all_rows # print all lcd number rows
+    lcd_sizer.print_row1
+    lcd_sizer.height.times { lcd_sizer.print_row2 }
+    lcd_sizer.print_row3
+    lcd_sizer.height.times { lcd_sizer.print_row4 }
+    lcd_sizer.print_row5
+  end
+
 end
 
 p = LcdPrinter.new(number, lcd_height)
+
 p.print_all_rows
 
-# This solution works (CLI Output below) but I would like to refactor it to adhere to Sandi Metz's design principles.
+# CLI Output below
 
 =begin
 
-[2015Feb17 19:41:40] lcd_number_gen $ ruby lcd.rb 0987654321
+[2015Feb23 13:16:50] lcd_number_gen $ ruby lcd.rb 0987654321
  --   --   --   --   --   --        --   --       
 |  | |  | |  |    | |    |    |  |    |    |    | 
 |  | |  | |  |    | |    |    |  |    |    |    | 
@@ -154,12 +157,18 @@ p.print_all_rows
 |  |    | |  |    | |  |    |    |    | |       | 
 |  |    | |  |    | |  |    |    |    | |       | 
  --   --   --        --   --        --   --       
-[2015Feb17 19:41:54] lcd_number_gen $ ruby lcd.rb -s 1 0987654321
+[2015Feb23 13:18:08] lcd_number_gen $ ruby lcd.rb -s 1 0987654321
  -   -   -   -   -   -       -   -      
 | | | | | |   | |   |   | |   |   |   | 
      -   -       -   -   -   -   -      
 | |   | | |   | | |   |   |   | |     | 
  -   -   -       -   -       -   -      
+
+=end
+
+=begin
+
+The current solution was refactored from original solution [2015Feb17 19:41:40] to adhere to Sandi Metz's design principles by separating and renaming the two object classes
 
 Original pseudocode:
 
