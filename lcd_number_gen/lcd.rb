@@ -30,9 +30,12 @@ Note the single column of space between digits in both examples. For other value
 
 =end
 
-if ARGV.include?("-s") # parse CLI arguments:
+if ARGV.index("-s") == 0 # parse CLI arguments:
   lcd_height = ARGV[1].to_i
   number = ARGV[2]
+elsif ARGV.index("-s") == 1
+  lcd_height = ARGV[2].to_i
+  number = ARGV[0] 
 else
   lcd_height = 2
   number = ARGV[0]
